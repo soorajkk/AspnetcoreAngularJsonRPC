@@ -1,2 +1,2 @@
 # AspnetcoreAngularJsonRPC
-asp. net core with angular2 and MediaR
+asp. net core with angular2 and MediaR , Implementing jsoRPC
