@@ -3,5 +3,5 @@ MAINTAINER SOORAJ KIZHAKKE KARALA
 COPY . /app
 WORKDIR /app
 RUN ["dotnet","restore"]
-EXPOSE 5050
+EXPOSE 5060
 ENTRYPOINT ["dotnet","run"]
