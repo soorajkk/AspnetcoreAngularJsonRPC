@@ -1,11 +1,13 @@
-﻿
-using MediatR;
+﻿using MediatR;
+
 
 namespace AspnetcoreAngularJsonRPC.MediatorCommands
 {
     public class Home : IRequest<Home.Response>
     {
         public string Name { get; set; }
+        public string ID { get; set; }
+        public string jaba { get; set; }
 
         public class Response
         {
@@ -18,7 +20,7 @@ namespace AspnetcoreAngularJsonRPC.MediatorCommands
             {
                 return new Response
                 {
-                    Message = "Hello " + request.Name,
+                    Message = "Hello " + request.Name + request.ID + request.jaba
                 };
             }
         }

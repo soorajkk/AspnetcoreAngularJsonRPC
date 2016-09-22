@@ -6,11 +6,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var root_1 = require('../util/root');
 var Observable_1 = require('../Observable');
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @extends {Ignored}
- * @hide true
- */
 var PromiseObservable = (function (_super) {
     __extends(PromiseObservable, _super);
     function PromiseObservable(promise, scheduler) {
@@ -19,14 +14,6 @@ var PromiseObservable = (function (_super) {
         this.promise = promise;
         this.scheduler = scheduler;
     }
-    /**
-     * @param promise
-     * @param scheduler
-     * @return {PromiseObservable}
-     * @static true
-     * @name fromPromise
-     * @owner Observable
-     */
     PromiseObservable.create = function (promise, scheduler) {
         if (scheduler === void 0) { scheduler = null; }
         return new PromiseObservable(promise, scheduler);
@@ -89,15 +76,15 @@ var PromiseObservable = (function (_super) {
     return PromiseObservable;
 }(Observable_1.Observable));
 exports.PromiseObservable = PromiseObservable;
-function dispatchNext(arg) {
-    var value = arg.value, subscriber = arg.subscriber;
+function dispatchNext(_a) {
+    var value = _a.value, subscriber = _a.subscriber;
     if (!subscriber.isUnsubscribed) {
         subscriber.next(value);
         subscriber.complete();
     }
 }
-function dispatchError(arg) {
-    var err = arg.err, subscriber = arg.subscriber;
+function dispatchError(_a) {
+    var err = _a.err, subscriber = _a.subscriber;
     if (!subscriber.isUnsubscribed) {
         subscriber.error(err);
     }

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 
+
 namespace AspnetcoreAngularJsonRPC.MediatorCommands
 {
     public class ShowTimerResult : IRequest<ShowTimerResult.Response>
@@ -8,7 +9,7 @@ namespace AspnetcoreAngularJsonRPC.MediatorCommands
         public class Response
         {
             public string Message { get; set; }
-            // public TimeResponseVM MyProperty { get; set; }
+           // public TimeResponseVM MyProperty { get; set; }
         };
 
         //public class ShowTimerResultHandler : IRequestHandler<ShowTimerResult, Response>

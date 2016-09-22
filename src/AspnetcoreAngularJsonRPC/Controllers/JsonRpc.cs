@@ -4,6 +4,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Reflection;
+using System.Text;
 
 namespace AspnetcoreAngularJsonRPC.Controllers
 {
@@ -87,11 +91,84 @@ namespace AspnetcoreAngularJsonRPC.Controllers
         }
 
         [Route("")]
-        [HttpGet, HttpPost]
+        [HttpPost]
         public dynamic Execute()
         {
             var json = GetRequestAsString();
             return _jsonRpc.Execute(json);
+        }
+
+
+        [Route("{*tags}")]
+        [HttpGet]
+        public dynamic ExecuteGet(string tags)
+        {
+
+            //TODO: Do your thing here...
+
+            return _jsonRpc.Execute(GetRequestJsonString(tags.Split('/')));
+        }
+
+
+        [Route("{*tags}")]
+        [HttpHead]
+        public HttpResponseMessage ExecuteHead(string tags)
+        {
+
+            //TODO: Do your thing here...
+            var outputObject = (JsonRpcResponse)_jsonRpc.Execute(GetRequestJsonString(tags.Split('/')));
+            Type myType = outputObject.result.GetType();
+            IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
+            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK);
+
+            foreach (PropertyInfo prop in props)
+            {
+                if (prop.GetValue(outputObject.result, null) != null)
+                    message.Headers.Add(prop.Name, prop.GetValue(outputObject.result, null).ToString());
+
+            }
+            return message;
+        }
+
+
+        private static string GetRequestJsonString(string[] tags)
+        {
+            StringBuilder param = new StringBuilder();
+            for (int i = 1; i < tags.Length; i++)
+            {
+                param.Append(tags[i]);
+            }
+            var jsonStr = "{ \"jsonrpc\":\"2.0\",\"method\":" + "\"" + tags[0] + "\"" + ",\"params\":{" + ConvertStringArrayToString(tags) + "},\"id\":\"f8441312-5929-49dc-bd8b-467488fa7b64\"}";
+            return jsonStr;
+        }
+        static string ConvertStringArrayToString(string[] array)
+        {
+            //
+            // Concatenate all the elements into a StringBuilder.
+            //
+            StringBuilder builder = new StringBuilder();
+            //if (array[1].Contains(":"))
+            //{
+
+            //    for (int i = 1; i < array.Length; i++)
+            //    {
+            //        var split = array[i].Split(':');
+            //        builder.Append("\"" + split[0] + "\"" + ":" + "\"" + split[1] + "\"");
+            //        if (i != array.Length - 1)
+            //            builder.Append(',');
+            //    }
+            //}
+            //else
+            //{
+            for (int i = 1; i < array.Length; i = i + 2)
+            {
+                builder.Append("\"" + array[i] + "\"" + ":" + "\"" + array[i + 1] + "\"");
+                if (i != array.Length - 2)
+                    builder.Append(',');
+            }
+            // }
+
+            return builder.ToString();
         }
 
         private string GetRequestAsString()

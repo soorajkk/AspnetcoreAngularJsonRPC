@@ -19,7 +19,7 @@
     "AspnetcoreAngularJsonRPC": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/values",
+      "launchUrl": "http://localhost:31819/Index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

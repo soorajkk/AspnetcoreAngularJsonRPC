@@ -7,11 +7,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Observable_1 = require('../Observable');
 var asap_1 = require('../scheduler/asap');
 var isNumeric_1 = require('../util/isNumeric');
-/**
- * We need this JSDoc comment for affecting ESDoc.
- * @extends {Ignored}
- * @hide true
- */
 var SubscribeOnObservable = (function (_super) {
     __extends(SubscribeOnObservable, _super);
     function SubscribeOnObservable(source, delayTime, scheduler) {
@@ -33,8 +28,8 @@ var SubscribeOnObservable = (function (_super) {
         if (scheduler === void 0) { scheduler = asap_1.asap; }
         return new SubscribeOnObservable(source, delay, scheduler);
     };
-    SubscribeOnObservable.dispatch = function (arg) {
-        var source = arg.source, subscriber = arg.subscriber;
+    SubscribeOnObservable.dispatch = function (_a) {
+        var source = _a.source, subscriber = _a.subscriber;
         return source.subscribe(subscriber);
     };
     SubscribeOnObservable.prototype._subscribe = function (subscriber) {

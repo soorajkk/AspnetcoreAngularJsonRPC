@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using MediatR;
 using AspnetcoreAngularJsonRPC.Controllers;
 using System.IO;
+using AspnetcoreAngularJsonRPC.Misc;
+using AspnetcoreAngularJsonRPC.ModelServices;
 
 namespace AspnetcoreAngularJsonRPC
 {
@@ -33,7 +35,8 @@ namespace AspnetcoreAngularJsonRPC
             //services.AddTransient<IMediator, Mediator>();
             services.AddTransient<IJsonRpc, JsonRpc>();
             services.AddTransient<IJsonProcessor, MediatedJsonProcessor>();
-            //services.AddTransient<IMediator, Mediator>();
+            services.AddSingleton<IamSingleton, IamSingletonDefault>();
+            services.AddTransient<IProductListService, ProductListService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
